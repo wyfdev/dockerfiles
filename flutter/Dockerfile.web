@@ -1,0 +1,10 @@
+ARG BASE_IMG
+FROM ${BASE_IMG}
+
+#
+# web
+#   https://flutter.dev/docs/get-started/install/linux#web-setup
+#   https://flutter.dev/docs/development/tools/devtools/cli
+#
+RUN flutter pub global activate devtools
+ENV PATH="/dep/flutter/.pub-cache/bin:${PATH}"
