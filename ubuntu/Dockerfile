@@ -6,7 +6,8 @@ RUN apt-get update &&\
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y zsh curl git vim make iputils-* iproute2 socat tree dnsutils
 
-RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" &&\
+    echo "\ntest -f /work/.incenvrc && source /work/.incenvrc" >> /root/.zshrc
 
 WORKDIR /work
 
