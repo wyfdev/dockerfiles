@@ -24,11 +24,11 @@ python:
 		-f python/Dockerfile \
 		.
 
-nodejs18:
+nodejs20:
 	docker build \
 		--build-arg BASE_IMG=${BASE_IMG} \
-		--build-arg node_version=18 \
-		-t ${NAMESPACE}/nodejs:18 \
+		--build-arg node_version=20 \
+		-t ${NAMESPACE}/nodejs:20 \
 		-f nodejs/Dockerfile \
 		.
 
