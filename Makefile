@@ -2,8 +2,8 @@ NAMESPACE := wyfio
 BASE_IMG := ${NAMESPACE}/ubuntu
 
 
-test:
-	@echo ${BASE_IMG}
+show-base-image:
+	@echo "Base image: ${BASE_IMG}"
 
 #
 # base
@@ -43,8 +43,6 @@ rust:
 		-t ${NAMESPACE}/rust \
 		-f rust/Dockerfile \
 		.
-
-
 
 nodejs20:
 	docker build \
