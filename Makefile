@@ -16,7 +16,20 @@ base:
 # developing docker envs
 #
 
-python:
+python-latest:
+	@$(eval PY_VERSION := $(shell  \
+			curl -sL https://api.github.com/repos/python/cpython/tags | \
+			jq -r ".[].name" | \
+			grep -Po -m 1 "^v\d+\.\d+\.\d+$$"))
+	@echo "Python Version: ${PY_VERSION}"
+	docker build \
+		--build-arg BASE_IMG=${BASE_IMG} \
+		--build-arg PYTHON_VERSION=${PY_VERSION} \
+		-t ${NAMESPACE}/python:latest \
+		-f python/Dockerfile.build \
+		.
+
+python3:
 	docker build \
 		--build-arg BASE_IMG=${BASE_IMG} \
 		--build-arg python_version=3 \
@@ -24,11 +37,20 @@ python:
 		-f python/Dockerfile \
 		.
 
-nodejs18:
+rust:
 	docker build \
 		--build-arg BASE_IMG=${BASE_IMG} \
-		--build-arg node_version=18 \
-		-t ${NAMESPACE}/nodejs:18 \
+		-t ${NAMESPACE}/rust \
+		-f rust/Dockerfile \
+		.
+
+
+
+nodejs20:
+	docker build \
+		--build-arg BASE_IMG=${BASE_IMG} \
+		--build-arg node_version=20 \
+		-t ${NAMESPACE}/nodejs:20 \
 		-f nodejs/Dockerfile \
 		.
 
