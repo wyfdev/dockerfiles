@@ -37,6 +37,13 @@ python3:
 		-f python/Dockerfile \
 		.
 
+go golang:
+	docker build \
+		--build-arg BASE_IMG=${BASE_IMG} \
+		-t ${NAMESPACE}/golang \
+		-f golang/Dockerfile \
+		.
+
 rust:
 	docker build \
 		--build-arg BASE_IMG=${BASE_IMG} \
