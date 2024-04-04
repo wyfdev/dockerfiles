@@ -22,17 +22,17 @@ RUN mkdir -p /work &&\
 
 WORKDIR /work/cpython
 
-RUN ./configure --with-pydebug --prefix=/work/dist
-RUN make -j`nproc` && make install
-
+RUN ./configure --with-pydebug --prefix=/usr
+RUN make -j`nproc`
+RUN DESTDIR=/work/dist make install
 
 #
 # dist img
 #
 FROM ${BASE_IMG}
 
-COPY --from=builder /work/dist /usr
-RUN cp /usr/bin/python3 /usr/bin/python &&\
-    cp /usr/bin/pip3 /usr/bin/pip
+COPY --from=builder /work/dist /
+RUN ln -s /usr/bin/python3 /usr/bin/python &&\
+    ln -s /usr/bin/pip3 /usr/bin/pip
 
-RUN python -m pip install -U pip ipython ipdb pytest
+RUN python -m pip install -U pip ipython ipdb pytest pyright
