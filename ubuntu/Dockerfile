@@ -3,10 +3,11 @@ FROM docker.io/ubuntu
 RUN apt-get update &&\
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y \
-        zsh curl wget sed make tree \
-        iputils-* iproute2 socat dnsutils \
+        zsh curl wget sed make tree psmisc \
+        iproute2 net-tools socat dnsutils traceroute tcpdump lsof \
+        iputils-ping iputils-arping iputils-clockdiff iputils-tracepath \
         git vim &&\
-        rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" &&\
     sed -i 's/^ZSH_THEME=.*/ZSH_THEME="afowler"/g' /root/.zshrc &&\
