@@ -21,7 +21,7 @@ python-latest:
 			curl -sL https://api.github.com/repos/python/cpython/tags | \
 			jq -r ".[].name" | \
 			grep -Po -m 1 "^v\d+\.\d+\.\d+$$"))
-	@echo "Python Version: ${PY_VERSION}"
+	@echo "Found the Latest Python Version: [${PY_VERSION}]"
 	docker build \
 		--build-arg BASE_IMG=${BASE_IMG} \
 		--build-arg PYTHON_VERSION=${PY_VERSION} \
