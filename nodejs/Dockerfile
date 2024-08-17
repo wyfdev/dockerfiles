@@ -2,22 +2,10 @@ ARG BASE_IMG
 
 FROM ${BASE_IMG}
 
+ARG nvm_version
 ARG node_version
 
-RUN curl -sL https://deb.nodesource.com/setup_${node_version}.x | bash -
-# https://github.com/nodesource/distributions/blob/master/README.md
-# output:
-## Run `sudo apt-get install -y nodejs` to install Node.js 13.x and npm
-## You may also need development tools to build native addons:
-#    sudo apt-get install gcc g++ make
-## To install the Yarn package manager, run:
-#    curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-#    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-#    sudo apt-get update && sudo apt-get install yarn
-
-RUN apt-get install -y nodejs gcc g++ make
-RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - &&\
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list &&\
-    apt-get update &&\
-    apt-get install -y yarn &&\
-    rm -rf /var/lib/apt/lists/*
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_version}/install.sh | bash
+RUN sed -i '/^source.*oh-my-zsh.sh/a source /root/.nvm.env.sh' /root/.zshrc &&\
+    echo 'export NVM_DIR="$HOME/.nvm"; source "$NVM_DIR/nvm.sh"; source "$NVM_DIR/bash_completion"' > $HOME/.nvm.env.sh
+RUN zsh -c "source $HOME/.nvm.env.sh && nvm install ${node_version}"

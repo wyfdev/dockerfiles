@@ -52,8 +52,14 @@ rust:
 		.
 
 nodejs20:
+	@$(eval NVM_VERSION := $(shell  \
+			curl -sL https://api.github.com/repos/nvm-sh/nvm/tags | \
+			jq -r ".[].name" | \
+			grep -Po -m 1 "^v\d+\.\d+\.\d+$$"))
+	# nvm version: $(NVM_VERSION)
 	docker build \
 		--build-arg BASE_IMG=${BASE_IMG} \
+		--build-arg nvm_version=${NVM_VERSION} \
 		--build-arg node_version=20 \
 		-t ${NAMESPACE}/nodejs:20 \
 		-f nodejs/Dockerfile \
