@@ -1,0 +1,27 @@
+export ZSH="$HOME/.oh-my-zsh"
+
+if [[ -d "/work/.incenv" ]]; then
+    HISTFILE=/work/.incenv/zsh_history
+else
+    HISTFILE=/work/.zsh_history
+fi
+
+ZSH_THEME="afowler"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+
+alias g=git
+
+setopt extendedglob
+if [[ -n /root/*.env.sh(#qN) ]]; then
+    for envsh in `ls /root/*.env.sh`; do
+        source $envsh;
+    done
+fi
+
+
+[[ -f "/work/.incenvrc" ]] && source /work/.incenvrc
+[[ -f "/work/.envrc" ]] && source /work/.envrc
