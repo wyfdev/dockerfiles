@@ -1,11 +1,12 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-if [[ -d "/work/.incenv" ]]; then
-    HISTFILE=/work/.incenv/zsh_history
-else
-    HISTFILE=/work/.zsh_history
-fi
+# ensure /work/.incenv
+[[ ! -d "/work/.incenv" ]] && \
+    mkdir -p /work/.incenv
 
+
+# config, source omzsh
+HISTFILE=/work/.incenv/zsh_history
 ZSH_THEME="afowler"
 
 plugins=(git)
@@ -13,8 +14,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 
-alias g=git
-
+# hooks
 setopt extendedglob
 if [[ -n /root/*.env.sh(#qN) ]]; then
     for envsh in `ls /root/*.env.sh`; do
@@ -23,5 +23,10 @@ if [[ -n /root/*.env.sh(#qN) ]]; then
 fi
 
 
+# settings
+alias g=git
+
+
+# source scripts
 [[ -f "/work/.incenvrc" ]] && source /work/.incenvrc
 [[ -f "/work/.envrc" ]] && source /work/.envrc

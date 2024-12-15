@@ -1,0 +1,4 @@
+set nu
+
+noremap <C-h> ^
+noremap <C-l> $
