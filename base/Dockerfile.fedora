@@ -1,0 +1,18 @@
+FROM docker.io/fedora
+
+
+RUN dnf install -y \
+        zsh curl wget gzip bzip2 sed make tree psmisc procps-ng \
+        iproute net-tools socat dnsutils traceroute tcpdump lsof \
+        iputils \
+        git vim &&\
+    dnf clean all &&\
+    rm -rf /var/cache/yum
+
+
+RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+ADD ./zshrc /root/.zshrc
+
+WORKDIR /work
+
+ENTRYPOINT /bin/zsh

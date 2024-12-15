@@ -9,7 +9,7 @@ show-base-image:
 # base
 #
 base:
-	docker build -t ${BASE_IMG} ubuntu
+	docker build -t ${BASE_IMG} -f base/Dockerfile.ubuntu base
 
 
 #
@@ -77,5 +77,13 @@ flutter:
 		--build-arg BASE_IMG=${BASE_IMG} \
 		-t ${NAMESPACE}/flutter-base \
 		-f flutter/Dockerfile .
+
+
+#
+# alternative base image
+#
+fedora:
+	docker build -t ${NAMESPACE}/fedora -f base/Dockerfile.fedora base
+
 
 .PHONY: *
