@@ -3,7 +3,7 @@ FROM docker.io/ubuntu
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get update &&\
     apt-get install -y \
-        zsh curl wget gzip bzip2 xz-utils sed make tree psmisc \
+        zsh curl wget gzip bzip2 xz-utils sed make just tree psmisc \
         iproute2 net-tools socat dnsutils traceroute tcpdump lsof \
         iputils-ping iputils-arping iputils-clockdiff iputils-tracepath \
         git vim &&\
