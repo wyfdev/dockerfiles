@@ -35,4 +35,4 @@ COPY --from=builder /work/dist /
 RUN ln -s /usr/bin/python3 /usr/bin/python &&\
     ln -s /usr/bin/pip3 /usr/bin/pip
 
-RUN python -m pip install -U pip ipython ipdb pytest pyright
+RUN python -m pip install --break-system-packages -U pip ipython ipdb pytest pyright uv
