@@ -11,7 +11,10 @@ ZSH_THEME="afowler"
 
 plugins=(git)
 
+# omz
 source $ZSH/oh-my-zsh.sh
+
+zstyle ':omz:update' mode disabled
 
 
 # hooks
